@@ -1,13 +1,10 @@
-import json
-import base64
 import create_acc
-from algosdk import account, mnemonic, constants
-from algosdk.v2client import algod
-from algosdk.future import transaction
+import create_certificate
+from algosdk.future.transaction import AssetTransferTxn, wait_for_confirmation
 
 
 
-def transferAssets(algod_client, alice, bob, asset_id):
+def transferAssets(algod_client, sender, receiver, asset_id):
   print("--------------------------------------------")
   print("Transfering Alice's token to Bob......")
   params = algod_client.suggested_params()
@@ -15,12 +12,12 @@ def transferAssets(algod_client, alice, bob, asset_id):
   # params.fee = 1000
   # params.flat_fee = True
   txn = AssetTransferTxn(
-      sender=alice['pk'],
+      sender=sender['pk'],
       sp=params,
-      receiver=bob["pk"],
+      receiver=receiver["pk"],
       amt=100,
       index=asset_id)
-  stxn = txn.sign(alice['sk'])
+  stxn = txn.sign(sender['sk'])
   txid = algod_client.send_transaction(stxn)
   print(txid)
   # Wait for the transaction to be confirmed
@@ -29,4 +26,9 @@ def transferAssets(algod_client, alice, bob, asset_id):
   print("Result confirmed in round: {}".format(confirmed_txn['confirmed-round']))
   # The balance should now be 10.
   #print_asset_holding(algod_client, bob['pk'], asset_id)
-  transferAssets(algod_client, accounts[0], accounts[1], asset_id)
+
+  student = create_acc
+  uni = create_acc
+  f = open("./TUM-certificate.json", "r")
+  asset_Id = create_certificate(uni.get('pk'), f, "./TUM-certificate.json")
+  transferAssets(algod_client, uni, student, asset_Id)
