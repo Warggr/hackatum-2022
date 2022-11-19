@@ -69,7 +69,8 @@ async function reloadUserData(){
 			]);
 			allUsersReact.push( e('div', { key: user }, [miniHeaderReact, documentsReact]) );
 		}
-		if(allUsersReact.length == 0) root.render(e('p', null, 'No data :('));
+		if(allUsersReact.length == 0) root.render( 'No data :(' );
 		else root.render( allUsersReact );
-	});
+	})
+	.catch(_err => root.render('Error when reloading data') );
 }
