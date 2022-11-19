@@ -16,7 +16,7 @@ def transferAssets(algod_client, sender, receiver, asset_id):
       sender=sender['pk'],
       sp=params,
       receiver=receiver["pk"],
-      amt=100,
+      amt=1000,
       index=asset_id)
   stxn = txn.sign(sender['sk'])
   txid = algod_client.send_transaction(stxn)
@@ -28,7 +28,6 @@ def transferAssets(algod_client, sender, receiver, asset_id):
   # The balance should now be 10.
   #print_asset_holding(algod_client, bob['pk'], asset_id)
 
-print("Starting transaction")
 algod_address = "http://localhost:4001"
 algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 algod_client = algod.AlgodClient(algod_token, algod_address)
