@@ -1,4 +1,5 @@
-div.docs > div {
+.docs > div.container > div.row > div {
+	margin: 3px;
 	background: grey;
 }
 
