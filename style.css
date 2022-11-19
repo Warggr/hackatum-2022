@@ -3,16 +3,26 @@
 	background: grey;
 }
 
-html {
-	min-height: 100%;
+
+html, body {
+	/*min-height: 100%; */
+	height: 100%;
   }
 
-h1,h2,h3,h4,h5 {
+
+h1,h2,h4,h5 {
 	text-align: center;
 }
 
 .persons > div > img {
 	height: 80px;
+	float: left;
+	margin: 5px;
+}
+
+.persons > div > div.about {
+	display: inline;
+	clear: none;
 }
 
 .banner {
@@ -21,4 +31,6 @@ h1,h2,h3,h4,h5 {
 
 #cntr {
 	background-color: aliceblue;
+	height: 100%;
+
 }
