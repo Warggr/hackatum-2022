@@ -1,11 +1,10 @@
 import json
 import hashlib
-# from algosdk import mnemonic, account
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetConfigTxn, wait_for_confirmation
 
-# issuer is a directory ['pk'] needed!
-def create_certificate(issuer, file):
+# issuer is a directory ['pk'] needed! -> but can be changed since only the private key is used
+def create_certificate(issuer, file, url_path):
 
     #normal algod client config for local blockchain
     algod_address = "http://localhost:4001"
@@ -36,6 +35,7 @@ def create_certificate(issuer, file):
       reserve=issuer['pk'],
       freeze=issuer['pk'],
       clawback=issuer['pk'],
+      url= url_path,
       metadata_hash=file_metadata_hash,
       decimals=0)
 
