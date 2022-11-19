@@ -6,54 +6,26 @@ from algosdk.future import transaction
 
 
 
-def first_transaction_example(private_key, my_address, receiver_address):
-    algod_address = "http://localhost:4001"
-    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    algod_client = algod.AlgodClient(algod_token, algod_address)
-
-    print("My address: {}".format(my_address))
-    account_info = algod_client.account_info(my_address)
-    print("Account balance: {} microAlgos".format(account_info.get('amount')))
-
-    # build transaction
-    params = algod_client.suggested_params()
-    # comment out the next two (2) lines to use suggested fees
-    #params.flat_fee = constants.MIN_TXN_FEE 
-    #params.fee = 1000
-    #receiver = "HZ57J3K46JIJXILONBBZOHX6BKPXEM2VVXNRFSUED6DKFD5ZD24PMJ3MVA"
-    amount = 0
-    note = "Hello World".encode()
-
-    unsigned_txn = transaction.PaymentTxn(my_address, params, receiver_address, amount, None, note)
-
-    # sign transaction
-    signed_txn = unsigned_txn.sign(private_key)
-
-    # submit transaction
-    txid = algod_client.send_transaction(signed_txn)
-    print("Signed transaction with txID: {}".format(txid))
-
-    # wait for confirmation 
-    try:
-        confirmed_txn = transaction.wait_for_confirmation(algod_client, txid, 4)  
-    except Exception as err:
-        print(err)
-        return
-
-    print("Transaction information: {}".format(
-        json.dumps(confirmed_txn, indent=4)))
-    print("Decoded note: {}".format(base64.b64decode(
-        confirmed_txn["txn"]["txn"]["note"]).decode()))
-
-    print("Starting Account balance: {} microAlgos".format(account_info.get('amount')) )
-    print("Amount transfered: {} microAlgos".format(amount) )    
-    print("Fee: {} microAlgos".format(params.fee) ) 
-
-
-    account_info = algod_client.account_info(my_address)
-    print("Final Account balance: {} microAlgos".format(account_info.get('amount')) + "\n")
-
-
-
-# replace private_key and my_address with your private key and your address.
-first_transaction_example(private_key, my_address, receiver_address)
+def transferAssets(algod_client, alice, bob, asset_id):
+  print("--------------------------------------------")
+  print("Transfering Alice's token to Bob......")
+  params = algod_client.suggested_params()
+  # comment these two lines if you want to use suggested params
+  # params.fee = 1000
+  # params.flat_fee = True
+  txn = AssetTransferTxn(
+      sender=alice['pk'],
+      sp=params,
+      receiver=bob["pk"],
+      amt=100,
+      index=asset_id)
+  stxn = txn.sign(alice['sk'])
+  txid = algod_client.send_transaction(stxn)
+  print(txid)
+  # Wait for the transaction to be confirmed
+  confirmed_txn = wait_for_confirmation(algod_client, txid, 4)
+  print("TXID: ", txid)
+  print("Result confirmed in round: {}".format(confirmed_txn['confirmed-round']))
+  # The balance should now be 10.
+  #print_asset_holding(algod_client, bob['pk'], asset_id)
+  transferAssets(algod_client, accounts[0], accounts[1], asset_id)
