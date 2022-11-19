@@ -32,6 +32,7 @@ def create_certificate(issuer, file, url_path):
       total=1000,
       default_frozen=False,
       asset_name="Certificate",
+      manager=issuer['sk'],
       reserve=issuer['sk'],
       freeze=issuer['sk'],
       clawback=issuer['sk'],
