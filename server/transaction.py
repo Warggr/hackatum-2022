@@ -6,7 +6,7 @@ from algosdk.future import transaction
 
 
 
-def first_transaction_example(private_key, my_address):
+def first_transaction_example(private_key, my_address, receiver_address):
     algod_address = "http://localhost:4001"
     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     algod_client = algod.AlgodClient(algod_token, algod_address)
@@ -20,11 +20,11 @@ def first_transaction_example(private_key, my_address):
     # comment out the next two (2) lines to use suggested fees
     #params.flat_fee = constants.MIN_TXN_FEE 
     #params.fee = 1000
-    receiver = "HZ57J3K46JIJXILONBBZOHX6BKPXEM2VVXNRFSUED6DKFD5ZD24PMJ3MVA"
+    #receiver = "HZ57J3K46JIJXILONBBZOHX6BKPXEM2VVXNRFSUED6DKFD5ZD24PMJ3MVA"
     amount = 100000
     note = "Hello World".encode()
 
-    unsigned_txn = transaction.PaymentTxn(my_address, params, receiver, amount, None, note)
+    unsigned_txn = transaction.PaymentTxn(my_address, params, receiver_address, amount, None, note)
 
     # sign transaction
     signed_txn = unsigned_txn.sign(private_key)
