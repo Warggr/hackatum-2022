@@ -1,5 +1,6 @@
 import json
 import base64
+import create_acc
 from algosdk import account, mnemonic, constants
 from algosdk.v2client import algod
 from algosdk.future import transaction
@@ -54,6 +55,7 @@ def first_transaction_example(private_key, my_address, receiver_address):
     print("Final Account balance: {} microAlgos".format(account_info.get('amount')) + "\n")
 
 
-
+student = create_acc()
+uni = create_acc()
 # replace private_key and my_address with your private key and your address.
-first_transaction_example(private_key, my_address, receiver_address)
+first_transaction_example(uni.get('pk'), uni.get('add'), student.get('add'))
