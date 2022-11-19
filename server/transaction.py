@@ -21,7 +21,7 @@ def first_transaction_example(private_key, my_address, receiver_address):
     #params.flat_fee = constants.MIN_TXN_FEE 
     #params.fee = 1000
     #receiver = "HZ57J3K46JIJXILONBBZOHX6BKPXEM2VVXNRFSUED6DKFD5ZD24PMJ3MVA"
-    amount = 100000
+    amount = 0
     note = "Hello World".encode()
 
     unsigned_txn = transaction.PaymentTxn(my_address, params, receiver_address, amount, None, note)
@@ -56,4 +56,4 @@ def first_transaction_example(private_key, my_address, receiver_address):
 
 
 # replace private_key and my_address with your private key and your address.
-first_transaction_example(private_key, my_address)
+first_transaction_example(private_key, my_address, receiver_address)
