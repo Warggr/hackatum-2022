@@ -47,6 +47,7 @@ div.mini-header > img {
 
 .banner {
 	background-image: url("images/network-gfab68dbf4_1920.jpg");
+	opacity: 0.4;
 	height: 250px;
 	background-position: center;
 	background-size: cover;
