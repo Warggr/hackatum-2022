@@ -34,6 +34,6 @@ algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 algod_client = algod.AlgodClient(algod_token, algod_address)
 student = create_acc()
 uni = create_acc()
-f = open("./server/TUM-certificate.json", "r")
+f = open("./server/TUM-certificate.json", "r").read().encode("utf-8")
 asset_Id = create_certificate(uni, f, "./server/TUM-certificate.json")
-transferAssets(algod_client, uni, student, asset_Id)
+# transferAssets(algod_client, uni, student, asset_Id)

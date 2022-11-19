@@ -10,6 +10,7 @@ def create_acc():
     print("My private key: {}".format(acc.get('sk')))
     acc['m'] = mnemonic.from_private_key(acc.get('sk'))
     print("My address: {}".format(acc.get('add')))
+    acc['pk'] = mnemonic.to_public_key(acc.get('m'))
 
     return acc
 

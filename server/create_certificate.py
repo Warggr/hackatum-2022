@@ -4,7 +4,7 @@ from algosdk.v2client import algod
 from algosdk.future.transaction import AssetConfigTxn, wait_for_confirmation
 
 # issuer is a directory ['sk'] needed! -> but can be changed since only the private key is used
-def create_certificate(issuer, file, url_path):
+def create_certificate(issuer, f, url_path):
 
     #normal algod client config for local blockchain
     algod_address = "http://localhost:4001"
@@ -21,21 +21,24 @@ def create_certificate(issuer, file, url_path):
     # params.fee = 1000
     # params.flat_fee = True
 
+    #metadataJSON = json.load(f.read())
+    #metadataStr = json.dumps(metadataJSON)
+
     hash = hashlib.new("sha512_256")
     hash.update(b"arc0003/amj")
-    hash.update(file)
+    hash.update(f)
     file_metadata_hash = hash.digest()
 
     txn = AssetConfigTxn(
-      sender=issuer['sk'],
+      sender=issuer['pk'],
       sp=params,
       total=1000,
       default_frozen=False,
       asset_name="Certificate",
-      manager=issuer['sk'],
-      reserve=issuer['sk'],
-      freeze=issuer['sk'],
-      clawback=issuer['sk'],
+      manager=issuer['pk'],
+      reserve=issuer['pk'],
+      freeze=issuer['pk'],
+      clawback=issuer['pk'],
       url= url_path,
       metadata_hash=file_metadata_hash,
       strict_empty_address_check=False,
