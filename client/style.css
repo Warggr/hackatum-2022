@@ -17,7 +17,13 @@ body {
 	width: 100%;
 }
 
-h1,h2,h4,h5 {
+.center{
+  text-align: center;
+   color: white;
+   vertical-align: 50%;
+}
+
+h2,h4,h5 {
 	text-align: center;
 }
 
@@ -37,9 +43,14 @@ div.mini-header > img {
 }
 
 .banner {
-
+	background-image: url("images/network-gfab68dbf4_1920.jpg");
+	height: 250px;
+	background-position: center;
+	background-size: cover;
+	text-align: center;
 }
 
 .back {
 	background-color: aliceblue;
 }
+
