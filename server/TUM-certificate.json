@@ -1,0 +1,15 @@
+{
+    "name": "Certificate",
+    "description": "Bachelor Degree",
+    "issued_by": "Technical University of Munich",
+    "issued_for": "Mark Mueller",
+    "date_of_issue": "19.11.2022",
+    "course": "Computer Science",
+    "properties": {
+        "simple_property": "Mark's Certificate ",
+        "rich_property": {
+            "final_grade": "1.7",
+            "matrikulation_number": "057845693"
+        }
+    }
+}
