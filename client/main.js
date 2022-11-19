@@ -69,6 +69,7 @@ async function reloadUserData(){
 			]);
 			allUsersReact.push( e('div', { key: user }, [miniHeaderReact, documentsReact]) );
 		}
-		root.render( allUsersReact );
+		if(allUsersReact.length == 0) root.render(e('p', null, 'No data :('));
+		else root.render( allUsersReact );
 	});
 }
