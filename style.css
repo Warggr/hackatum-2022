@@ -1,6 +1,8 @@
 .docs > div.container > div.row > div {
 	margin: 3px;
-	background: grey;
+	border: 1px solid;
+	text-align: center;
+	height: 200px;
 }
 
 
@@ -17,7 +19,7 @@ h1,h2,h4,h5 {
 .persons > div > img {
 	height: 80px;
 	float: left;
-	margin: 5px;
+	margin: 5px 15px;
 }
 
 .persons > div > div.about {
