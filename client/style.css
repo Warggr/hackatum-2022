@@ -31,7 +31,7 @@ div.mini-header > img {
 	margin: 5px 15px;
 }
 
-.persons > div > div.about {
+#persons > div > div.about {
 	display: inline;
 	clear: none;
 }
