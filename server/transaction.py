@@ -1,5 +1,6 @@
-import create_acc
-import create_certificate
+from create_acc import *
+from create_certificate import *
+from algosdk.v2client import algod
 from algosdk.future.transaction import AssetTransferTxn, wait_for_confirmation
 
 
@@ -27,8 +28,12 @@ def transferAssets(algod_client, sender, receiver, asset_id):
   # The balance should now be 10.
   #print_asset_holding(algod_client, bob['pk'], asset_id)
 
-  student = create_acc
-  uni = create_acc
-  f = open("./TUM-certificate.json", "r")
-  asset_Id = create_certificate(uni.get('pk'), f, "./TUM-certificate.json")
-  transferAssets(algod_client, uni, student, asset_Id)
+print("Starting transaction")
+algod_address = "http://localhost:4001"
+algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+algod_client = algod.AlgodClient(algod_token, algod_address)
+student = create_acc()
+uni = create_acc()
+f = open("./server/TUM-certificate.json", "r")
+asset_Id = create_certificate(uni, f, "./server/TUM-certificate.json")
+transferAssets(algod_client, uni, student, asset_Id)

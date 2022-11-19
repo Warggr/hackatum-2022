@@ -3,6 +3,7 @@ from algosdk import account, mnemonic
 
 def create_acc():
     
+    print("Creating acc\n\n")
     # Generate new account for this transaction
     acc = {}
     acc['sk'], acc['add'] = account.generate_account()
