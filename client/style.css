@@ -17,10 +17,13 @@ body {
 	width: 100%;
 }
 
-.center{
-  text-align: center;
-   color: white;
-   vertical-align: 50%;
+.banner {
+	height: 100%;
+	text-align: center;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 h2,h4,h5 {
