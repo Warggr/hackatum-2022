@@ -3,7 +3,7 @@ import hashlib
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetConfigTxn, wait_for_confirmation
 
-# issuer is a directory ['pk'] needed! -> but can be changed since only the private key is used
+# issuer is a directory ['sk'] needed! -> but can be changed since only the private key is used
 def create_certificate(issuer, file, url_path):
 
     #normal algod client config for local blockchain
@@ -27,14 +27,14 @@ def create_certificate(issuer, file, url_path):
     file_metadata_hash = hash.digest()
 
     txn = AssetConfigTxn(
-      sender=issuer['pk'],
+      sender=issuer['sk'],
       sp=params,
       total=1000,
       default_frozen=False,
       asset_name="Certificate",
-      reserve=issuer['pk'],
-      freeze=issuer['pk'],
-      clawback=issuer['pk'],
+      reserve=issuer['sk'],
+      freeze=issuer['sk'],
+      clawback=issuer['sk'],
       url= url_path,
       metadata_hash=file_metadata_hash,
       decimals=0)

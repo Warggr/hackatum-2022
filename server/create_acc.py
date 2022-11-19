@@ -5,9 +5,9 @@ def create_acc():
     
     # Generate new account for this transaction
     acc = {}
-    acc['pk'], acc['add'] = account.generate_account()
-    print("My private key: {}".format(acc.get('pk')))
-    acc['m'] = mnemonic.from_private_key(acc.get('pk'))
+    acc['sk'], acc['add'] = account.generate_account()
+    print("My private key: {}".format(acc.get('sk')))
+    acc['m'] = mnemonic.from_private_key(acc.get('sk'))
     print("My address: {}".format(acc.get('add')))
 
     return acc
