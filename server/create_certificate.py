@@ -23,7 +23,7 @@ def create_certificate(issuer, file, url_path):
 
     hash = hashlib.new("sha512_256")
     hash.update(b"arc0003/amj")
-    hash.update(file.encode("utf-8"))
+    hash.update(file)
     file_metadata_hash = hash.digest()
 
     txn = AssetConfigTxn(
@@ -37,11 +37,12 @@ def create_certificate(issuer, file, url_path):
       clawback=issuer['sk'],
       url= url_path,
       metadata_hash=file_metadata_hash,
+      strict_empty_address_check=False,
       decimals=0)
 
     # Sign with secret key of creator
     stxn = txn.sign(issuer['sk'])
-    
+
     # Send the transaction to the network and retrieve the txid.
     txid = algod_client.send_transaction(stxn)
     print("Asset Creation Transaction ID: {}".format(txid))
@@ -60,4 +61,4 @@ def create_certificate(issuer, file, url_path):
     except Exception as e:
           print(e)
   
-    return asset_id    
+    return asset_id
