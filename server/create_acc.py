@@ -12,5 +12,6 @@ def create_acc():
 
     return acc
 
+# comment the following two lines if you store the account details somewhere else
 acc = create_acc()
 print("private_key: " + acc.get['pk'])
