@@ -25,12 +25,15 @@ def create():
 	filename = file.filename
 	file_url = upload_to_server(file)
 	assetId = create_certificate(user1, file.read(), file_url)
-	return Response('Created', status=201)
+	return Response(assetId, status=201)
 
-@app.route('/transfer', methods=['POST'])
-def transfer():
+@app.route('/transfer/<int:assetId>', methods=['POST'])
+def transfer(assetId):
+	print('During transfer, assetID is', assetId)
+	print('During transfer, user2 is', user2)
 	optIn(user2, assetId)
 	transferAssets(user1, user2, assetId)
+	return Response('Done', 200)
 
 @app.route('/web/<path:filepath>')
 def send_static(filepath):

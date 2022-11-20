@@ -1,15 +1,10 @@
 from create_acc import *
 from create_certificate import *
 from fund_acc import *
-from algosdk.v2client import algod
+from config import algod_address, algod_token, algod_client
 from algosdk.future.transaction import AssetTransferTxn, wait_for_confirmation, AssetConfigTxn, PaymentTxn
 
 def optIn(receiver, asset_id):
-
-  algod_address = "http://localhost:4001"
-  algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  algod_client = algod.AlgodClient(algod_token, algod_address)
-
   print("--------------------------------------------")
   print("Opt-in to accept token......")
   # Check if asset_id is in Bob's asset holdings prior
@@ -49,10 +44,6 @@ def optIn(receiver, asset_id):
     # print_asset_holding(algod_client, receiver['pk'], asset_id)
 
 def transferAssets(alice, bob, asset_id):
-
-  algod_address = "http://localhost:4001"
-  algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-  algod_client = algod.AlgodClient(algod_token, algod_address)
 
   print("--------------------------------------------")
   print("Transfering Alice's token to Bob......")

@@ -48,6 +48,17 @@ function uploadToBlockchain(){
     console.log('Uploading to blockchain...');
     xhr.send(fd);
 }
+function transferWithinBlockchain(){
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if(xhr.status < 300) console.log(xhr.status, xhr.responseText);
+            else console.warn("ERROR", xhr);
+        }
+    }
+    xhr.open('post', 'http://localhost:5000/transfer/108');
+    xhr.send();
+}
 </script>
 <div class="container content">
     <div class="row">
@@ -60,6 +71,7 @@ function uploadToBlockchain(){
         <input type="file" id="file-to-load" name="certificate"/>
         <button type="submit">Upload to Blockchain</button>
     </form>
+    <button onclick="transferWithinBlockchain();">Transfer file</input>
 </div>
 <script src="https://portal-beta.mgt.tum.de:443/js/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

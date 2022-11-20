@@ -1,14 +1,10 @@
 import json
 import base64
 from algosdk import account, mnemonic, constants
-from algosdk.v2client import algod
 from algosdk.future import transaction
-
+from config import algod_address, algod_token, algod_client
 
 def fund(private_key, my_address, receiver):
-    algod_address = "http://localhost:4001"
-    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    algod_client = algod.AlgodClient(algod_token, algod_address)
 
     print("My address: {}".format(my_address))
     account_info = algod_client.account_info(my_address)

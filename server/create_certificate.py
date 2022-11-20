@@ -1,17 +1,10 @@
 import json
 import hashlib
-from algosdk.v2client import algod
+from config import algod_address, algod_token, algod_client
 from algosdk.future.transaction import AssetConfigTxn, wait_for_confirmation
 
 # issuer is a directory ['sk'] needed! -> but can be changed since only the private key is used
 def create_certificate(issuer, f, url_path):
-
-    #normal algod client config for local blockchain
-    algod_address = "http://localhost:4001"
-    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-    algod_client = algod.AlgodClient(algod_token, algod_address)
-
-
     print("--------------------------------------------")
     print("Creating Asset...")
     # CREATE ASSET
