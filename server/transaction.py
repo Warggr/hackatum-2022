@@ -1,5 +1,6 @@
 from create_acc import *
 from create_certificate import *
+from fund_acc import *
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetTransferTxn, wait_for_confirmation
 
@@ -32,7 +33,11 @@ algod_address = "http://localhost:4001"
 algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
 algod_client = algod.AlgodClient(algod_token, algod_address)
 student = create_acc()
+private_key = mnemonic.to_private_key("witness minor police loud ability vintage cattle entire spread poverty proof rail tomato near swamp raven network future tunnel neglect advice early bundle absorb youth")
+address = "7BEIK53QNADEMME4JZ57LSPTBODQ4TRHCI7VZZLYTCMP6DECR644B7OILQ"
+first_transaction_example(private_key, address,student['add'])
 uni = create_acc()
+first_transaction_example(private_key, address, uni['add'])
 f = open("./server/TUM-certificate.json", "r").read().encode("utf-8")
 asset_Id = create_certificate(uni, f, "./server/TUM-certificate.json")
-# transferAssets(algod_client, uni, student, asset_Id)
+transferAssets(algod_client, uni, student, asset_Id)
