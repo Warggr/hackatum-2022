@@ -74,7 +74,7 @@ async function reloadUserData(){
 
 			let name;
 			let name_data = assets_by_user[user].find(e => e.name == '.name.meta');
-			if(name_data){ name = name_data.url.substr(8); assets_by_user[user] = assets_by_user[user].filter(e => e.name != '.name.meta'); }
+			if(name_data){ name = name_data.url.substr(8).replace('+', ' '); assets_by_user[user] = assets_by_user[user].filter(e => e.name != '.name.meta'); }
 			else { name = user; }
 
 			let about = 'No additional information entered.';

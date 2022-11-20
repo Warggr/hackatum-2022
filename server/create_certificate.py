@@ -61,7 +61,7 @@ def create_certificate(issuer, f, filename, url_path):
     return asset_id
 
 def give_name(issuer, name):
-  create_certificate(issuer=issuer, f=b'', '.name.meta', 'soneb://' + name.replace(' ', '+'))
+  create_certificate(issuer=issuer, f=b'', filename='.name.meta', url_path='soneb://' + name.replace(' ', '+'))
 
 def print_created_asset(algodclient, account, assetid):
   # note: if you have an indexer instance available it is easier to just use this

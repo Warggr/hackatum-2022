@@ -1,5 +1,5 @@
 from flask import Flask, request, Response, send_file
-from create_certificate import create_certificate
+from create_certificate import create_certificate, give_name
 from create_acc import create_acc
 from transaction import optIn, transferAssets
 import os.path
@@ -47,6 +47,8 @@ def send_static(filepath):
 if __name__ == "__main__":
 	user1 = create_acc()
 	user2 = create_acc()
+	give_name(user1, 'Technical University of Munich')
+	give_name(user2, 'Example Student')
 	print('Using user with public key', user1['pk'])
 	print('Using user with public key', user2['pk'])
 	app.run()
