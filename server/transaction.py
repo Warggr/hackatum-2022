@@ -4,7 +4,12 @@ from fund_acc import *
 from algosdk.v2client import algod
 from algosdk.future.transaction import AssetTransferTxn, wait_for_confirmation, AssetConfigTxn, PaymentTxn
 
-def optIn(algod_client, receiver, asset_id):
+def optIn(receiver, asset_id):
+
+  algod_address = "http://localhost:4001"
+  algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  algod_client = algod.AlgodClient(algod_token, algod_address)
+
   print("--------------------------------------------")
   print("Opt-in to accept token......")
   # Check if asset_id is in Bob's asset holdings prior
@@ -43,7 +48,12 @@ def optIn(algod_client, receiver, asset_id):
     # This should now show a holding with a balance of 0.
     # print_asset_holding(algod_client, receiver['pk'], asset_id)
 
-def transferAssets(algod_client,alice, bob, asset_id):
+def transferAssets(alice, bob, asset_id):
+
+  algod_address = "http://localhost:4001"
+  algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  algod_client = algod.AlgodClient(algod_token, algod_address)
+
   print("--------------------------------------------")
   print("Transfering Alice's token to Bob......")
 
@@ -70,20 +80,3 @@ def transferAssets(algod_client,alice, bob, asset_id):
   print("Result confirmed in round: {}".format(confirmed_txn['confirmed-round']))
   # The balance should now be 10.
   #print_asset_holding(algod_client, bob['pk'], asset_id)
-
-
-algod_address = "http://localhost:4001"
-algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-algod_client = algod.AlgodClient(algod_token, algod_address)
-
-student = create_acc()
-private_key = mnemonic.to_private_key("witness minor police loud ability vintage cattle entire spread poverty proof rail tomato near swamp raven network future tunnel neglect advice early bundle absorb youth")
-address = "7BEIK53QNADEMME4JZ57LSPTBODQ4TRHCI7VZZLYTCMP6DECR644B7OILQ"
-first_transaction_example(private_key, address,student['add'])
-uni = create_acc()
-first_transaction_example(private_key, address, uni['add'])
-f = open("./server/TUM-certificate.json", "r").read().encode("utf-8")
-asset_Id = create_certificate(uni, f, "./server/TUM-certificate.json")
-print_created_asset(algod_client, uni['pk'], asset_Id)
-optIn(algod_client, student, asset_Id)
-transferAssets(algod_client, uni, student, asset_Id)

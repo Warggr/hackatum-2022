@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, send_file
 from create_certificate import create_certificate
 from create_acc import create_acc
+from transaction import optIn, transferAssets
 import os.path
 
 UPLOAD_DIR = os.path.join(os.path.dirname(__file__), '..', 'content')
@@ -10,7 +11,9 @@ print(UPLOAD_DIR, WEB_FILES)
 
 app = Flask(__name__, static_folder='content')
 
-user = None
+user1 = None
+user2 = None
+assetId = None
 
 def upload_to_server(file):
 	file.save(os.path.join(UPLOAD_DIR, file.filename))
@@ -21,14 +24,21 @@ def create():
 	file = request.files['certificate']
 	filename = file.filename
 	file_url = upload_to_server(file)
-	create_certificate(user, file.read(), file_url)
+	assetId = create_certificate(user1, file.read(), file_url)
 	return Response('Created', status=201)
+
+@app.route('/transfer', methods=['POST'])
+def transfer():
+	optIn(user2, assetId)
+	transferAssets(user1, user2, assetId)
 
 @app.route('/web/<path:filepath>')
 def send_static(filepath):
 	return send_file(os.path.join(WEB_FILES, filepath))
 
 if __name__ == "__main__":
-	user = create_acc()
-	print('Using user with private key', user['pk'])
+	user1 = create_acc()
+	user2 = create_acc()
+	print('Using user with public key', user1['pk'])
+	print('Using user with public key', user2['pk'])
 	app.run()

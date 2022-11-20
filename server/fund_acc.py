@@ -5,7 +5,7 @@ from algosdk.v2client import algod
 from algosdk.future import transaction
 
 
-def first_transaction_example(private_key, my_address, receiver):
+def fund(private_key, my_address, receiver):
     algod_address = "http://localhost:4001"
     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
     algod_client = algod.AlgodClient(algod_token, algod_address)

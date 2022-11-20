@@ -1,5 +1,6 @@
 import os
 from algosdk import account, mnemonic
+from fund_acc import fund
 
 def create_acc():
     
@@ -12,9 +13,8 @@ def create_acc():
     print("My address: {}".format(acc.get('add')))
     acc['pk'] = mnemonic.to_public_key(acc.get('m'))
 
-    return acc
+    private_key = mnemonic.to_private_key("witness minor police loud ability vintage cattle entire spread poverty proof rail tomato near swamp raven network future tunnel neglect advice early bundle absorb youth")
+    address = "7BEIK53QNADEMME4JZ57LSPTBODQ4TRHCI7VZZLYTCMP6DECR644B7OILQ"
+    fund(private_key, address, acc['add'])
 
-if __name__ == "__main__":
-    # comment the following two lines if you store the account details somewhere else
-    acc = create_acc()
-    print("private_key: " + acc.get['pk'])
+    return acc
