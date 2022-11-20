@@ -16,7 +16,7 @@ user2 = None
 assetId = None
 
 def upload_to_server(file, username):
-	filename = username[:16] + file.filename
+	filename = username[:16].replace('/', '-') + file.filename
 	file.save(os.path.join(UPLOAD_DIR, filename))
 	return "http://localhost:5000/content/" + filename
 

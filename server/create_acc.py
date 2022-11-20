@@ -13,8 +13,8 @@ def create_acc():
     print("My address: {}".format(acc.get('add')))
     acc['pk'] = mnemonic.to_public_key(acc.get('m'))
 
-    private_key = mnemonic.to_private_key("witness minor police loud ability vintage cattle entire spread poverty proof rail tomato near swamp raven network future tunnel neglect advice early bundle absorb youth")
-    address = "7BEIK53QNADEMME4JZ57LSPTBODQ4TRHCI7VZZLYTCMP6DECR644B7OILQ"
+    private_key = mnemonic.to_private_key("chapter congress calm absent alter rally account diet spare broccoli describe collect destroy tennis tribe reward demand jungle roof acid indicate exile marriage about address")
+    address = "25EKXG3ESZVHD56DAGDE67S6K3YCUDL63EDNXTZOMQOP4GGWC4FDDYKBMY"
     fund(private_key, address, acc['add'])
 
     return acc
