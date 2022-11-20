@@ -66,7 +66,7 @@ async function reloadUserData(){
 					assets[asset.index] = { creator : account.address, data: asset };
 				}
 			}
-			if(account['assets']) for(let asset of account['assets']){
+			if(account['assets']) for(let asset of account['assets']) if(asset['amount'] == 1000){
 				if(assets[asset['asset-id']]){
 					assets[asset['asset-id']].owner = account.address;
 				} else {
