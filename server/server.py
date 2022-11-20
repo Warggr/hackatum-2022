@@ -25,7 +25,7 @@ def create():
 	filename = file.filename
 	file_url = upload_to_server(file)
 	assetId = create_certificate(user1, file.read(), file_url)
-	return Response(assetId, status=201)
+	return Response(str(assetId), status=201)
 
 @app.route('/transfer/<int:assetId>', methods=['POST'])
 def transfer(assetId):

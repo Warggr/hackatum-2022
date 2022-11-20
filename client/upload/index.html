@@ -29,35 +29,56 @@
     </div>
 </div>
 <script>
-function uploadToBlockchain(){
-    var xhr = new XMLHttpRequest();
-    (xhr.upload || xhr).addEventListener('progress', function(e) {
-        var done = e.position || e.loaded
-        var total = e.totalSize || e.total;
-        console.log('xhr progress: ' + Math.round(done/total*100) + '%');
-    });
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState === XMLHttpRequest.DONE) {
-            if(xhr.status < 300) console.log(xhr.status, xhr.responseText);
-            else console.warn("ERROR", xhr);
-        }
+class Upload {
+    constructor(){
+        this.dom = document.createElement('div');
+        document.getElementById('uploaded-files').appendChild(this.dom);
+        this.dom.textContent = 'Uploading file to intermediary server...';
     }
-    xhr.open('post', 'http://localhost:5000/upload', true);
-    var fd = new FormData;
-    fd.append('certificate', document.getElementById('file-to-load').files[0]);
-    console.log('Uploading to blockchain...');
-    xhr.send(fd);
+    startUpload(){
+        var xhr = new XMLHttpRequest();
+        var self = this;
+        (xhr.upload || xhr).addEventListener('progress', function(e){
+            var done = e.position || e.loaded;
+            var total = e.totalSize || e.total;
+            self.dom.textContent += ' progress: ' + Math.round(done/total*100) + '%';
+        });
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === XMLHttpRequest.DONE) {
+                if(xhr.status < 300){
+                    self.id = Number.parseInt( xhr.responseText );
+                    self.dom.textContent = 'Created resource with ID ' + xhr.responseText;
+                    let button = document.createElement('button');
+                    button.textContent = 'Transfer certificate';
+                    button.onclick = self.transfer.bind(self);
+                    self.dom.appendChild( button );
+                }
+                else self.dom.textContent = 'Upload failed';
+            }
+        }
+        xhr.open('post', 'http://localhost:5000/upload', true);
+        var fd = new FormData;
+        fd.append('certificate', document.getElementById('file-to-load').files[0]);
+        xhr.send(fd);
+    }
+    transfer(){
+        var self = this;
+        self.dom.childNodes[0].disabled = true;
+        self.dom.childNodes[0].textContent = 'Transferring...';
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function(){
+            if(xhr.readyState === XMLHttpRequest.DONE) {
+                if(xhr.status < 300) self.dom.textContent = 'Transferred';
+                else self.dom.textContent = 'Transfer failed :(';
+            }
+        }
+        xhr.open('post', 'http://localhost:5000/transfer/' + this.id);
+        xhr.send();
+    }
 }
-function transferWithinBlockchain(){
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = () => {
-        if(xhr.readyState === XMLHttpRequest.DONE) {
-            if(xhr.status < 300) console.log(xhr.status, xhr.responseText);
-            else console.warn("ERROR", xhr);
-        }
-    }
-    xhr.open('post', 'http://localhost:5000/transfer/108');
-    xhr.send();
+function uploadToBlockchain(){
+    let upload = new Upload();
+    upload.startUpload();
 }
 </script>
 <div class="container content">
@@ -71,7 +92,7 @@ function transferWithinBlockchain(){
         <input type="file" id="file-to-load" name="certificate"/>
         <button style="margin:5px" align="left" type="submit">Upload to Blockchain</button>
     </form>
-    <button align ="left "onclick="transferWithinBlockchain();">Transfer file</input>
+    <div id="uploaded-files"></div>
 </div>
 <script src="https://portal-beta.mgt.tum.de:443/js/jquery-2.1.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
