@@ -4,7 +4,7 @@ from config import algod_address, algod_token, algod_client
 from algosdk.future.transaction import AssetConfigTxn, wait_for_confirmation
 
 # issuer is a directory ['sk'] needed! -> but can be changed since only the private key is used
-def create_certificate(issuer, f, url_path):
+def create_certificate(issuer, f, filename, url_path):
     print("--------------------------------------------")
     print("Creating Asset...")
     # CREATE ASSET
@@ -27,7 +27,7 @@ def create_certificate(issuer, f, url_path):
       sp=params,
       total=1000,
       default_frozen=False,
-      asset_name="Certificate",
+      asset_name=filename,
       manager=issuer['pk'],
       reserve=issuer['pk'],
       freeze=issuer['pk'],
@@ -59,6 +59,9 @@ def create_certificate(issuer, f, url_path):
           print(e)
   
     return asset_id
+
+def give_name(issuer, name):
+  create_certificate(issuer=issuer, f=b'', '.name.meta', 'soneb://' + name.replace(' ', '+'))
 
 def print_created_asset(algodclient, account, assetid):
   # note: if you have an indexer instance available it is easier to just use this

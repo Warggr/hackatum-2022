@@ -2,7 +2,7 @@
 	padding: 5px;
 }
 
-.docs > div.container > div.row > div > div {
+.docs > div.container > div.row > div > a > div {
 	border: 1px solid black;
 	max-width: 400px;
 	height: 200px;

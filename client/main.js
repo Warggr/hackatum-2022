@@ -26,20 +26,28 @@ const LOREM_IPSUM = 'Omnis illo minima quaerat eveniet sed deserunt dolor ducimu
 class MiniHeader extends React.Component {
 	render(){
 		return e('div', {className: "mini-header"},
-			e('h3', {}, this.props.user),
-			e('img', {src: 'resources/mock_profile.jpg'}),
-			e('div', {className: "about"}, LOREM_IPSUM)
+			e('h3', {}, this.props.username),
+			e('img', {src: this.props.profile_pic}),
+			e('div', {className: "about"}, this.props.about)
 		);
 	}
 }
 
 class DocumentView extends React.Component {
 	render(){
+		let extension = this.props.asset.url.split('.').slice(-1);
+		let icon = extension == 'pdf' ? 'pdf_icon.png' :
+				   extension == 'json' ? 'icon_json.png' :
+				   extension == 'py' ? 'icon_python.png' :
+				   'icon_graph.png';
+
 		return e('div', {className: "col-md-3", key: this.props.asset.name}, [
+			e('a', {href: this.props.asset.url},
 			e('div', {}, [
 				e('h5', {}, this.props.asset.name),
-				e('img', {src: "resources/pdf_icon.png", style: {height: "160px", align: "center"}}, null)
+				e('img', {src: "resources/" + icon, style: {height: "160px", align: "center"}}, null)
 			])
+			)
 		]);
 	}
 }
@@ -59,7 +67,19 @@ async function reloadUserData(){
 		}
 		allUsersReact = [];
 		for(let user in assets_by_user){
-			let miniHeaderReact = e(MiniHeader, {user:user}, null);
+			let profile_url;
+			let profile_pic = assets_by_user[user].find(e => e.name == '.profile.meta');
+			if(profile_pic){ profile_url = profile_pic.url; assets_by_user[user] = assets_by_user[user].filter(e => e.name != '.profile.meta'); }
+			else {  profile_url = 'resources/mock_profile.jpg'; }
+
+			let name;
+			let name_data = assets_by_user[user].find(e => e.name == '.name.meta');
+			if(name_data){ name = name_data.url.substr(8); assets_by_user[user] = assets_by_user[user].filter(e => e.name != '.name.meta'); }
+			else { name = user; }
+
+			let about = 'No additional information entered.';
+
+			let miniHeaderReact = e(MiniHeader, {username:name, profile_pic:profile_url, about:about}, null);
 			let documentsReact = e('div', { className: "docs documents" }, [
 				e('h4', {}, 'Documents'),
 				e('div', { className: "container"},

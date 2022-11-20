@@ -15,16 +15,21 @@ user1 = None
 user2 = None
 assetId = None
 
-def upload_to_server(file):
-	file.save(os.path.join(UPLOAD_DIR, file.filename))
-	return "http://localhost:5000/content/" + file.filename
+def upload_to_server(file, username):
+	filename = username[:16] + file.filename
+	file.save(os.path.join(UPLOAD_DIR, filename))
+	return "http://localhost:5000/content/" + filename
 
 @app.route('/upload', methods=['POST'])
 def create():
 	file = request.files['certificate']
 	filename = file.filename
-	file_url = upload_to_server(file)
-	assetId = create_certificate(user1, file.read(), file_url)
+	if len(filename) > 32:
+		filename = filename[:16] + filename[-16:]
+	file_url = upload_to_server(file, user1['sk'])
+	print('URL: ', file_url)
+	assetId = create_certificate(user1, file.read(), filename, file_url)
+	# asset names are limited to 32 char, and we want to keep the extension
 	return Response(str(assetId), status=201)
 
 @app.route('/transfer/<int:assetId>', methods=['POST'])
