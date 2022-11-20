@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <link rel="shortcut icon" href="../resources/graduate.png">
+    <title>Certificate Upload</title>
+    <link rel="Stylesheet" type="text/css" href="https://portal.ed.tum.de/css/bootstrap.min.css">
+    <link rel="Stylesheet" type="text/css" href="https://portal.ed.tum.de/css/style_bootstrap.css">
+    <link rel="Stylesheet" type="text/css" href="https://portal.ed.tum.de/css/style_typography.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+</head>
+<body>
+<div class="header hidden-print">
+    <div class="service-bar">
+    </div>
+    <div class="row">
+        <div id="logo-bar">
+            <div id="logo-bar__inner">
+                <div class="col-md-4">
+                    <div class="logo_fak">Blockchain Certificate Upload</div>
+                </div>
+                <div class="col-md-4 hidden-sm hidden-xs">
+                    <a href="https://www.tum.de" target="_self">
+                        <div><img src="../resources/graduate.png" style="width:38pt; float:right;"></div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+function uploadToBlockchain(){
+    var xhr = new XMLHttpRequest();
+    (xhr.upload || xhr).addEventListener('progress', function(e) {
+        var done = e.position || e.loaded
+        var total = e.totalSize || e.total;
+        console.log('xhr progress: ' + Math.round(done/total*100) + '%');
+    });
+    xhr.onreadystatechange = () => {
+        if(xhr.readyState === XMLHttpRequest.DONE) {
+            if(xhr.status < 300) console.log(xhr.status, xhr.responseText);
+            else console.warn("ERROR", xhr);
+        }
+    }
+    xhr.open('post', 'http://localhost:5000/upload', true);
+    var fd = new FormData;
+    fd.append('certificate', document.getElementById('file-to-load').files[0]);
+    console.log('Uploading to blockchain...');
+    xhr.send(fd);
+}
+</script>
+<div class="container content">
+    <div class="row">
+        <div class="col-sm-9">
+            <h1>Certificate Upload</h1>
+        </div>
+    </div>
+    <form method="post" onsubmit="uploadToBlockchain(); return false;">
+        <label for="file-to-load">Upload file here:</label>
+        <input type="file" id="file-to-load" name="certificate"/>
+        <button type="submit">Upload to Blockchain</button>
+    </form>
+</div>
+<script src="https://portal-beta.mgt.tum.de:443/js/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://portal-beta.mgt.tum.de:443/js/bootstrap.min.js"></script>
+</body>
+</html>

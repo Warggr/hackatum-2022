@@ -4,7 +4,7 @@ from create_acc import create_acc
 from transaction import optIn, transferAssets
 import os.path
 
-UPLOAD_DIR = os.path.join(os.path.dirname(__file__), '..', 'content')
+UPLOAD_DIR = os.path.join(os.path.dirname(__file__), 'content')
 WEB_FILES = os.path.join(os.path.dirname(__file__), '..', '..', 'client')
 
 print(UPLOAD_DIR, WEB_FILES)

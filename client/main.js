@@ -7,12 +7,9 @@ const e = React.createElement;
 const reactDomContainer = document.querySelector('#persons');
 const root = ReactDOM.createRoot(reactDomContainer);
 
-const MOCK_DATA = "{\"assets\":[{\"created-at-round\":5808,\"deleted\":false,\"index\":25,\"params\":{\"clawback\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"creator\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"decimals\":0,\"default-frozen\":false,\"freeze\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"manager\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"metadata-hash\":\"BWsshv3w9VJTJEw3jnnxQpT8nJ0sWdjmrjiSDXeLu+A=\",\"name\":\"Alice's Artwork Coins@arc3\",\"name-b64\":\"QWxpY2UncyBBcnR3b3JrIENvaW5zQGFyYzM=\",\"reserve\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"total\":1000,\"unit-name\":\"ALICEOI\",\"unit-name-b64\":\"QUxJQ0VPSQ==\",\"url\":\"https://path/to/my/asset/details\",\"url-b64\":\"aHR0cHM6Ly9wYXRoL3RvL215L2Fzc2V0L2RldGFpbHM=\"}},{\"created-at-round\":5855,\"deleted\":false,\"index\":26,\"params\":{\"clawback\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"creator\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"decimals\":0,\"default-frozen\":false,\"freeze\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"manager\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"metadata-hash\":\"BWsshv3w9VJTJEw3jnnxQpT8nJ0sWdjmrjiSDXeLu+A=\",\"name\":\"Alice's Artwork Coins@arc3\",\"name-b64\":\"QWxpY2UncyBBcnR3b3JrIENvaW5zQGFyYzM=\",\"reserve\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"total\":1000,\"unit-name\":\"ALICEOI\",\"unit-name-b64\":\"QUxJQ0VPSQ==\",\"url\":\"https://path/to/my/asset/details\",\"url-b64\":\"aHR0cHM6Ly9wYXRoL3RvL215L2Fzc2V0L2RldGFpbHM=\"}},{\"created-at-round\":5934,\"deleted\":false,\"index\":28,\"params\":{\"clawback\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"creator\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"decimals\":0,\"default-frozen\":false,\"freeze\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"manager\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"metadata-hash\":\"BWsshv3w9VJTJEw3jnnxQpT8nJ0sWdjmrjiSDXeLu+A=\",\"name\":\"Alice's Artwork Coins@arc3\",\"name-b64\":\"QWxpY2UncyBBcnR3b3JrIENvaW5zQGFyYzM=\",\"reserve\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"total\":1000,\"unit-name\":\"ALICEOI\",\"unit-name-b64\":\"QUxJQ0VPSQ==\",\"url\":\"https://path/to/my/asset/details\",\"url-b64\":\"aHR0cHM6Ly9wYXRoL3RvL215L2Fzc2V0L2RldGFpbHM=\"}},{\"created-at-round\":6026,\"deleted\":false,\"index\":29,\"params\":{\"clawback\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"creator\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"decimals\":0,\"default-frozen\":false,\"freeze\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"manager\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"metadata-hash\":\"BWsshv3w9VJTJEw3jnnxQpT8nJ0sWdjmrjiSDXeLu+A=\",\"name\":\"Alice's Artwork Coins@arc3\",\"name-b64\":\"QWxpY2UncyBBcnR3b3JrIENvaW5zQGFyYzM=\",\"reserve\":\"DRL6BOQDJ7FMLLP35DCUOQFFOOIYBLZPD7YO4BTN2PBLZLM7EPEWDBSU74\",\"total\":1000,\"unit-name\":\"ALICEOI\",\"unit-name-b64\":\"QUxJQ0VPSQ==\",\"url\":\"/home/programmer/Hackatum/aliceAssetMetaData.json\",\"url-b64\":\"L2hvbWUvcHJvZ3JhbW1lci9IYWNrYXR1bS9hbGljZUFzc2V0TWV0YURhdGEuanNvbg==\"}}],\"current-round\":6973,\"next-token\":\"29\"}";
-
 async function getUserData(){
 	const request = new XMLHttpRequest();
 	return new Promise((resolve, reject) => {
-		// resolve(MOCK_DATA);
 		request.onreadystatechange = () => {
 			if(request.readyState === XMLHttpRequest.DONE) {
 				if(request.status < 300) resolve(request.responseText);
@@ -51,6 +48,7 @@ async function reloadUserData(){
 	const data = await getUserData()
 	.then(data_string => {
 		const data = JSON.parse(data_string);
+		console.log(data);
 		const assets = data.assets;
 		let assets_by_user = {};
 		for(let asset of assets){
